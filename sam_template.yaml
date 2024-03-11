@@ -1,0 +1,133 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Shopify Webhooks
+Globals:
+  Function:
+    Timeout: 30
+    Runtime: nodejs18.x
+    MemorySize: 128
+Resources:
+  checkoutQueue:
+    Type: AWS::SQS::Queue
+    Metadata:
+      SamResourceId: checkoutQueue
+  orderQueue:
+    Type: AWS::SQS::Queue
+    Metadata:
+      SamResourceId: orderQueue
+  updateQueue:
+    Type: AWS::SQS::Queue
+    Metadata:
+      SamResourceId: updateQueue
+  HookApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: test
+    Metadata:
+      SamResourceId: HookApi
+  ValidateHmac:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://shopify-webhook-testing/407f4b07df056787c9ad1fa99940c2f2
+      Handler: handler.handler
+      Environment:
+        Variables:
+          webhook_verify_hash: '096df16dbcd3e39682f5b8a4dc5d048b84e7248e6488145c12544641ec049f3b'
+          CHECKOUT_QUEUE_ARN:
+            Ref: checkoutQueue
+          ORDER_QUEUE_ARN:
+            Ref: orderQueue
+          UPDATE_QUEUE_ARN:
+            Ref: updateQueue
+      Policies:
+      - SQSSendMessagePolicy:
+          QueueName:
+            Fn::GetAtt:
+            - checkoutQueue
+            - QueueName
+      - SQSSendMessagePolicy:
+          QueueName:
+            Fn::GetAtt:
+            - orderQueue
+            - QueueName
+      - SQSSendMessagePolicy:
+          QueueName:
+            Fn::GetAtt:
+            - updateQueue
+            - QueueName
+      Events:
+        CartUpdateHook:
+          Type: Api
+          Properties:
+            Path: /cart/update
+            Method: Post
+            RestApiId:
+              Ref: HookApi
+        CartCheckoutHook:
+          Type: Api
+          Properties:
+            Path: /cart/checkout
+            Method: Post
+            RestApiId:
+              Ref: HookApi
+        OrderHook:
+          Type: Api
+          Properties:
+            Path: /order/complete
+            Method: Post
+            RestApiId:
+              Ref: HookApi
+    Metadata:
+      SamResourceId: ValidateHmac
+  CheckoutFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://shopify-webhook-testing/4ea2cf468e5dcaa2f89e68b68db06ec6
+      Handler: checkoutHandler.handler
+      Events:
+        SQSCheckoutEvent:
+          Type: SQS
+          Properties:
+            Queue:
+              Fn::GetAtt:
+              - checkoutQueue
+              - Arn
+    Metadata:
+      SamResourceId: CheckoutFunction
+  OrderFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://shopify-webhook-testing/ca904a00c83546c81a7d2a1501a1f432
+      Handler: orderHandler.handler
+      Events:
+        SQSCheckoutEvent:
+          Type: SQS
+          Properties:
+            Queue:
+              Fn::GetAtt:
+              - orderQueue
+              - Arn
+    Metadata:
+      SamResourceId: OrderFunction
+  UpdateFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://shopify-webhook-testing/f9057fbacb18e95afc76021710e4130f
+      Handler: updateHandler.handler
+      Events:
+        SQSCheckoutEvent:
+          Type: SQS
+          Properties:
+            Queue:
+              Fn::GetAtt:
+              - updateQueue
+              - Arn
+    Metadata:
+      SamResourceId: UpdateFunction
+  BodyHookFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://shopify-webhook-testing/1869d2d23aa2194ae0be13e67b19ee66
+      Handler: getBody.handler
+    Metadata:
+      SamResourceId: BodyHookFunction

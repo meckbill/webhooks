@@ -1,0 +1,16 @@
+{
+  "Records": [
+    {
+      "messageId": "f7781986-9201-49bd-9172-ab5fd1127a19",
+      "receiptHandle": "AQEBIoQla+Asz+E4bEXfggcsndV+pqQyKkNQkGluSL1U871SdGCcJRn0Auo/Fz3sLinL65JQK+6m7nUZAPezyffewvZW4Ano/DCSy5lF/e6OXpaFo28429CE9eMUhcZTuG4d4vVy/pMn0YYcv0BBycLCe7RoHeGjc1b+w6KRBACX4zn+017ab/rOPbq98w44nnjB88yTHdGI40khAg7G+yYmvfwxN+XU6YfOFBO76zsgkan/94qXpIAEOo3To/1iTQw8F9ZnBghnGObjeyRVAFqO1eIqtGU39OjbYovKn28F3lxdtIWL+4qu1JAzXCMvt0ppJL9A3+c7ba2/eWbTmsJPDAScPX7NJbZKQpn2+FxwChBP2VXPrQ7JIg+0WiP5sEJ2HtEaOmsVV0q51j8Toa0vM0jpRwyPybOPlLorQK7ZtiU=",
+      "body": "{\"id\":\"eeafa272cebfd4b22385bc4b645e762c\",\"token\":\"eeafa272cebfd4b22385bc4b645e762c\",\"line_items\":[{\"id\":704912205188288575,\"properties\":{},\"quantity\":3,\"variant_id\":704912205188288575,\"key\":\"704912205188288575:33f11f7a1ec7d93b826de33bb54de37b\",\"discounted_price\":\"19.99\",\"discounts\":[],\"gift_card\":false,\"grams\":200,\"line_price\":\"59.97\",\"original_line_price\":\"59.97\",\"original_price\":\"19.99\",\"price\":\"19.99\",\"product_id\":788032119674292922,\"sku\":\"example-shirt-s\",\"taxable\":true,\"title\":\"Example T-Shirt\",\"total_discount\":\"0.00\",\"vendor\":\"Acme\",\"discounted_price_set\":{\"shop_money\":{\"amount\":\"19.99\",\"currency_code\":\"EUR\"},\"presentment_money\":{\"amount\":\"19.99\",\"currency_code\":\"EUR\"}},\"line_price_set\":{\"shop_money\":{\"amount\":\"59.97\",\"currency_code\":\"EUR\"},\"presentment_money\":{\"amount\":\"59.97\",\"currency_code\":\"EUR\"}},\"original_line_price_set\":{\"shop_money\":{\"amount\":\"59.97\",\"currency_code\":\"EUR\"},\"presentment_money\":{\"amount\":\"59.97\",\"currency_code\":\"EUR\"}},\"price_set\":{\"shop_money\":{\"amount\":\"19.99\",\"currency_code\":\"EUR\"},\"presentment_money\":{\"amount\":\"19.99\",\"currency_code\":\"EUR\"}},\"total_discount_set\":{\"shop_money\":{\"amount\":\"0.0\",\"currency_code\":\"EUR\"},\"presentment_money\":{\"amount\":\"0.0\",\"currency_code\":\"EUR\"}}}],\"note\":null,\"updated_at\":\"2024-03-11T15:12:52.641Z\",\"created_at\":\"2024-03-11T15:12:52.641Z\"}",
+      "attributes": ["Object"],
+      "messageAttributes": ["Object"],
+      "md5OfMessageAttributes": "1f3a044a0edc4ebd8dd22e2ec6dcda73",
+      "md5OfBody": "bd708239d54d61f65cf7ab159b75bad1",
+      "eventSource": "aws:sqs",
+      "eventSourceARN": "arn:aws:sqs:eu-central-1:396254415656:WebHooks-updateQueue-XGTNXbE8FeZs",
+      "awsRegion": "eu-central-1"
+    }
+  ]
+}

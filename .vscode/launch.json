@@ -1,0 +1,56 @@
+{
+  "configurations": [
+    {
+      "type": "aws-sam",
+      "request": "direct-invoke",
+      "name": "Checkout Lambda",
+      "invokeTarget": {
+        "target": "template",
+        "templatePath": "${workspaceFolder}/template.yaml",
+        "logicalId": "CheckoutFunction"
+      },
+      "lambda": {
+        "runtime": "nodejs18.x",
+        "payload": {
+          "path": "${workspaceFolder}/getCheckout/checkoutSqs_Event.json"
+        },
+        "environmentVariables": {}
+      }
+    },
+    {
+      "type": "aws-sam",
+      "request": "direct-invoke",
+      "name": "Order Lambda",
+      "invokeTarget": {
+        "target": "template",
+        "templatePath": "${workspaceFolder}/template.yaml",
+        "logicalId": "OrderFunction"
+      },
+      "lambda": {
+        "runtime": "nodejs18.x",
+        "payload": {
+          "path": "${workspaceFolder}/getOrder/orderSqs_Event.json"
+        },
+        "environmentVariables": {}
+      }
+    },
+    {
+      "type": "aws-sam",
+      "request": "direct-invoke",
+      "name": "Update Lambda",
+      "invokeTarget": {
+        "target": "template",
+        "templatePath": "${workspaceFolder}/template.yaml",
+        "logicalId": "UpdateFunction"
+      },
+      "lambda": {
+        "runtime": "nodejs18.x",
+        "payload": {
+          "path": "${workspaceFolder}/getUpdate/updateSqs_Event.json"
+        },
+        "environmentVariables": {}
+      }
+    }
+    
+  ]
+}
