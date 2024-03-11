@@ -1,4 +1,5 @@
 *node_modules/
 getBody/
+sam_template.yaml
 package-lock.json
 provino.js
