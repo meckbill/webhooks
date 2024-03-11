@@ -10,14 +10,6 @@ export async function validateHmac(event) {
       event.headers["x-shopify-hmac-sha256"]
     : "";
 
-  if (!shopify_hash) {
-    response.statusCode = 500;
-    response = {
-      body: JSON.stringify("No headers provided"),
-    };
-    throw new Error(response.boy);
-  }
-
   const hmac_content = createHmac("sha256", webhook_verify_hash)
     .update(Buffer.from(event.body, "utf-8"))
     .digest("base64");
@@ -29,7 +21,7 @@ export async function validateHmac(event) {
       body: JSON.stringify({ error: "Not from shopify" }),
     };
 
-    throw new Error(response.boy);
+    throw new Error(response.body);
   }
 
   console.log("Ok, from shopify");
